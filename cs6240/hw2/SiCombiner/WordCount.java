@@ -21,25 +21,15 @@ public class WordCount {
 
     private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
-    private static final HashSet<Character> REAL_WORD = new HashSet<>(Arrays.asList('m', 'M', 'n', 'N', 'o', 'O', 'p', 'P', 'q','Q'));
+    private static final HashSet<Character> REAL_WORD = new HashSet<>(Arrays.asList('m', 'M', 'n', 'N', 'o', 'O', 'p', 'P', 'q','Q')); // Set to store real word letters
 
     public void map(Object key, Text value, Context context
                     ) throws IOException, InterruptedException {
-        // Part 1
-        // StringTokenizer itr = new StringTokenizer(value.toString());
-        // while (itr.hasMoreTokens()) {
-        //     String next = itr.nextToken();
-        //     if (REAL_WORD.contains(next.charAt(0))) {
-        //         word.set(next);
-        //         context.write(word, one);
-        //     }
-        // }
-        
-        // Part 2
         StringTokenizer itr = new StringTokenizer(value.toString());
         while (itr.hasMoreTokens()) {
             String next = itr.nextToken();
             if (REAL_WORD.contains(next.charAt(0))) {
+              // If it is a real word
                 word.set(next);
                 context.write(word, one);
             }
@@ -62,6 +52,11 @@ public class WordCount {
       context.write(key, result);
     }
   }
+
+  /**
+    Custom Partitioner:
+      if word starts with 'm', map to 0. If word starts with n, map to 1, and so on. 
+  **/
 
     public static class RealWordPartitioner extends Partitioner<Text, IntWritable> {
         @Override
@@ -93,8 +88,7 @@ public class WordCount {
     job.setReducerClass(IntSumReducer.class);
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(IntWritable.class);
-    job.setPartitionerClass(RealWordPartitioner.class);
-    // job.setNumReduceTasks(5);
+    job.setPartitionerClass(RealWordPartitioner.class); // Set partitioner class
     FileInputFormat.addInputPath(job, new Path(args[0]));
     FileOutputFormat.setOutputPath(job, new Path(args[1]));
     System.exit(job.waitForCompletion(true) ? 0 : 1);
