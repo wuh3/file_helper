@@ -1,7 +1,7 @@
 REGISTER 's3://hw3cs6240/piggybank-0.17.0.jar';
 DEFINE CSVLoader org.apache.pig.piggybank.storage.CSVLoader();
 
-Flights1 = LOAD '/home/mikewu/pig_scripts/data.csv' USING CSVLoader AS (
+Flights1 = LOAD 's3://hw3cs6240/data.csv' USING CSVLoader AS (
     Year1:int,
     Quarter1:int,
     Month1:int,
@@ -59,7 +59,7 @@ Flights1 = LOAD '/home/mikewu/pig_scripts/data.csv' USING CSVLoader AS (
     LateAircraftDelay1:double
 );
 
-Flights2 = LOAD '/home/mikewu/pig_scripts/data.csv' USING CSVLoader AS (
+Flights2 = LOAD 's3://hw3cs6240/data.csv' USING CSVLoader AS (
     Year2:int,
     Quarter2:int,
     Month2:int,
