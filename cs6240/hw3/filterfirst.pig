@@ -58,7 +58,7 @@ Flights = LOAD 's3://hw3cs6240/data.csv' USING CSVLoader AS (
     SecurityDelay:double,
     LateAircraftDelay:double
 );
-Flights_cities = FILTER Flights BY (Origin == "ORD" OR Dest == "JFK");
+Flights_cities = FILTER Flights BY (Origin == 'ORD' OR Dest == 'JFK');
 Flights_Filtered = FILTER Flights_cities BY
     Cancelled == 0 AND Diverted == 0 AND
     ((Year == 2007 AND Month >= 6) OR (Year == 2008 AND Month <= 5));

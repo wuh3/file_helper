@@ -60,8 +60,8 @@ Flights = LOAD 's3://hw3cs6240/data.csv' USING CSVLoader AS (
 );
 
 Flights_Filtered = FILTER Flights BY Cancelled == 0.0 AND Diverted == 0.0;
-Flights_Filtered1 = FILTER Flights_Filtered BY Origin == "ORD";
-Flights_Filtered2 = FILTER Flights_Filtered BY Dest == "JFK";
+Flights_Filtered1 = FILTER Flights_Filtered BY Origin == 'ORD';
+Flights_Filtered2 = FILTER Flights_Filtered BY Dest == 'JFK';
 
 Flights1 = FOREACH Flights_Filtered1 GENERATE
     Year AS Year1,
