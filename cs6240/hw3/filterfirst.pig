@@ -58,18 +58,18 @@ Flights = LOAD 's3://hw3cs6240/data.csv' USING CSVLoader AS (
     SecurityDelay:double,
     LateAircraftDelay:double
 );
-
-Flights_Filtered = FILTER Flights BY
+Flights_cities = FILTER Flights BY (Origin == "ORD" OR Dest == "JFK");
+Flights_Filtered = FILTER Flights_cities BY
     Cancelled == 0 AND Diverted == 0 AND
     ((Year == 2007 AND Month >= 6) OR (Year == 2008 AND Month <= 5));
 
-Flights1_Clean = FOREACH Flights_Filtered GENERATE
+Flights1_Clean = FOREACH Flights_Filtered1 GENERATE
     FlightDate AS FlightDate1,
     Dest AS JoinAirport,
     ArrTime AS ArrTime1,
     ArrDelayMinutes AS ArrDelayMinutes1;
 
-Flights2_Clean = FOREACH Flights_Filtered GENERATE
+Flights2_Clean = FOREACH Flights_Filtered2 GENERATE
     FlightDate AS FlightDate2,
     Origin AS JoinAirport,
     DepTime AS DepTime2,

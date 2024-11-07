@@ -60,8 +60,10 @@ Flights = LOAD 's3://hw3cs6240/data.csv' USING CSVLoader AS (
 );
 
 Flights_Filtered = FILTER Flights BY Cancelled == 0.0 AND Diverted == 0.0;
+Flights_Filtered1 = FILTER Flights_Filtered BY Origin == "ORD";
+Flights_Filtered2 = FILTER Flights_Filtered BY Dest == "JFK";
 
-Flights1 = FOREACH Flights_Filtered GENERATE
+Flights1 = FOREACH Flights_Filtered1 GENERATE
     Year AS Year1,
     Month AS Month1,
     FlightDate AS FlightDate1,
@@ -69,7 +71,7 @@ Flights1 = FOREACH Flights_Filtered GENERATE
     ArrTime AS ArrTime1,
     ArrDelayMinutes AS ArrDelayMinutes1;
 
-Flights2 = FOREACH Flights_Filtered GENERATE
+Flights2 = FOREACH Flights_Filtered2 GENERATE
     Year AS Year2,
     Month AS Month2,
     FlightDate AS FlightDate2,
