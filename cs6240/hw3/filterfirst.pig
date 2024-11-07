@@ -63,13 +63,13 @@ Flights_Filtered = FILTER Flights_cities BY
     Cancelled == 0 AND Diverted == 0 AND
     ((Year == 2007 AND Month >= 6) OR (Year == 2008 AND Month <= 5));
 
-Flights1_Clean = FOREACH Flights_Filtered1 GENERATE
+Flights1_Clean = FOREACH Flights_Filtered GENERATE
     FlightDate AS FlightDate1,
     Dest AS JoinAirport,
     ArrTime AS ArrTime1,
     ArrDelayMinutes AS ArrDelayMinutes1;
 
-Flights2_Clean = FOREACH Flights_Filtered2 GENERATE
+Flights2_Clean = FOREACH Flights_Filtered GENERATE
     FlightDate AS FlightDate2,
     Origin AS JoinAirport,
     DepTime AS DepTime2,
